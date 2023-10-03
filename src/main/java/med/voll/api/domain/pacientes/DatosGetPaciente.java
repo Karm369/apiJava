@@ -9,7 +9,7 @@ public record DatosGetPaciente(
 		@NotNull Long id,
 		@NotBlank String nombre, 
 		@NotBlank String email, 
-		@NotBlank String documentoIdentidad,
+		@NotBlank String dni,
 		@NotBlank String telefono
 		
 		) { 
@@ -18,7 +18,7 @@ public record DatosGetPaciente(
 		this(	paciente.getId(),
 				paciente.getNombre(),
 				paciente.getEmail(),
-				paciente.getDocumentoIdentidad(),
+				paciente.getDni(),
 				paciente.getTelefono()
 				);
 				

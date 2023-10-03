@@ -11,7 +11,7 @@ public record DatosRegistroPaciente(
 		@NotBlank(message="Campo obligatorio")String nombre,
 		@NotBlank @Email String email,
 		@NotBlank String telefono,
-		@NotBlank @Pattern(regexp="\\d{10,14}")String documentoIdentidad,
+		@NotBlank @Pattern(regexp="\\d{10,14}")String dni,
         @NotNull @Valid DatosDireccion direccion) {
 
 }

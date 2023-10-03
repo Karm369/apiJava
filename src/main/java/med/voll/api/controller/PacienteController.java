@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import med.voll.api.domain.direccion.DatosDireccion;
@@ -29,6 +30,7 @@ import med.voll.api.domain.pacientes.PacienteRepository;
 
 @RestController
 @RequestMapping("/pacientes")
+@SecurityRequirement(name = "bearer-key")
 public class PacienteController {
 	
 	@Autowired
@@ -44,7 +46,7 @@ public class PacienteController {
 	    		paciente.getNombre(),
 	    		paciente.getEmail(),
 	    		paciente.getTelefono(), 
-	    		paciente.getDocumentoIdentidad().toString(), 
+	    		paciente.getDni().toString(), 
 				new DatosDireccion(
 						paciente.getDireccion().getCalle(),
 						paciente.getDireccion().getDistrito(),
@@ -84,7 +86,7 @@ public class PacienteController {
 	    		paciente.getNombre(),
 	    		paciente.getEmail(),
 	    		paciente.getTelefono(), 
-	    		paciente.getDocumentoIdentidad().toString(), 
+	    		paciente.getDni().toString(), 
 				new DatosDireccion(
 						paciente.getDireccion().getCalle(),
 						paciente.getDireccion().getDistrito(),

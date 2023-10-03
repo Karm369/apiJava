@@ -30,6 +30,7 @@ public class SecurityConfigurations  { //aqui se devuelve el obj
          .sessionManagement((sess-> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)))
          .authorizeHttpRequests((request -> request.requestMatchers(HttpMethod.POST,"/login")
                  .permitAll()
+                 .requestMatchers("/swagger-ui.html", "/v3/api-docs/**", "/swagger-ui/**").permitAll() 
                  .anyRequest().authenticated()))
          		.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
  return httpSecurity.build();

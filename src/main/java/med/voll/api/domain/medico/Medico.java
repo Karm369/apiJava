@@ -30,7 +30,7 @@ public @Data class Medico {  //aplicando los get and set el data no es necesario
 	private String email;
 	private String documento;
 	private String telefono;
-	private Boolean activo;
+	private Boolean activo = true;
 	
 	@Enumerated(EnumType.STRING)
 	private Especialidad especialidad;

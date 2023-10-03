@@ -27,7 +27,7 @@ public class Paciente {
 
 	    private String nombre;
 	    private String email;
-	    private String documentoIdentidad;
+	    private String dni;
 	    private String telefono;
 	    
 	    private Boolean activo = true;
@@ -44,7 +44,7 @@ public class Paciente {
 			
 			this.nombre = datosRegistroPaciente.nombre();
 			this.email = datosRegistroPaciente.email();
-			this.documentoIdentidad = datosRegistroPaciente.documentoIdentidad();
+			this.dni = datosRegistroPaciente.dni();
 			this.telefono = datosRegistroPaciente.telefono();
 			this.direccion= new Direccion (datosRegistroPaciente.direccion());
 			
@@ -76,12 +76,12 @@ public class Paciente {
 			this.email = email;
 		}
 
-		public String getDocumentoIdentidad() {
-			return documentoIdentidad;
+		public String getDni() {
+			return dni;
 		}
 
-		public void setDocumentoIdentidad(String documentoIdentidad) {
-			this.documentoIdentidad = documentoIdentidad;
+		public void setDni(String documentoIdentidad) {
+			this.dni = documentoIdentidad;
 		}
 
 		public String getTelefono() {

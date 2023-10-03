@@ -37,7 +37,7 @@ public class Consulta {
 	@JoinColumn(name="paciente_id")
 	private Paciente paciente;
 	
-	private LocalDateTime date;
+	private LocalDateTime data;
 	
 	
 	
@@ -47,11 +47,18 @@ public class Consulta {
 		this.id = id;
 		this.medico = medico;
 		this.paciente = paciente;
-		this.date = date;
+		this.data = date;
 	}
 
 	public Consulta() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public Consulta(Medico medico, Paciente paciente, LocalDateTime date) {
+		// TODO Auto-generated constructor stub
+		this.medico = medico;
+		this.paciente = paciente;
+		this.data = date;
 	}
 
 	public Medico getMedico() {
@@ -71,11 +78,11 @@ public class Consulta {
 	}
 
 	public LocalDateTime getDate() {
-		return date;
+		return data;
 	}
 
 	public void setDate(LocalDateTime date) {
-		this.date = date;
+		this.data = date;
 	}
 
 	public long getId() {

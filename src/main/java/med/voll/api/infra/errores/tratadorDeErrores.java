@@ -24,12 +24,20 @@ public class tratadorDeErrores {
 		return ResponseEntity.badRequest().body(errores); 
 	}
 	
+	@ExceptionHandler(ValidacionDeIntegridad.class)    //le dice a spring que esta funcion se debe lanzar cuando detecta un error 
+	public ResponseEntity errorhandlerValidacionesNegecio(Exception e) {   //el que genera el error y tiene todo listo es es el RE 
+		
+		return ResponseEntity.badRequest().body(e.getMessage()); 
+	}
+	
 	private record DatosErrorValidacion(String campo, String error) {
 		
 		public DatosErrorValidacion(FieldError error) {
 			this(error.getField(), error.getDefaultMessage());
 		}
 	}
+	
+	
 	
 	
 }

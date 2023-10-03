@@ -1,5 +1,7 @@
 package med.voll.api.domain.consultas;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,6 +9,7 @@ import med.voll.api.domain.medico.Medico;
 import med.voll.api.domain.medico.MedicoRepository;
 import med.voll.api.domain.pacientes.Paciente;
 import med.voll.api.domain.pacientes.PacienteRepository;
+import med.voll.api.domain.validaciones.ValidadorDeConsultas;
 import med.voll.api.infra.errores.ValidacionDeIntegridad;
 
 @Service
@@ -23,20 +26,31 @@ public class AgendaDeConsultasService {
 	@Autowired
 	private ConsultasRepository consuRepository;
 	
-	public void agendar(DatosAgendarConsulta datosAgen) {
+	@Autowired
+	List<ValidadorDeConsultas> validadores;
+	
+	public DatosDetalleConsulta agendar(DatosAgendarConsulta datosAgen) {
 		
-		if(pacienteRepository.findById(datosAgen.idPaciente()).isPresent()) {
+		if(!pacienteRepository.findById(datosAgen.idPaciente()).isPresent()) {
 			throw new ValidacionDeIntegridad("este id de paciente no fue encontrado ");
 		}
-		if (datosAgen.idMedico()!=null && medicoRepository.existsById(datosAgen.idMedico())) {
+		if (datosAgen.idMedico()!=null && !medicoRepository.existsById(datosAgen.idMedico())) {
 			throw new ValidacionDeIntegridad("este id de medico no fue encontrado ");
 		}
+		//validacioens
+		validadores.forEach(v->v.validar(datosAgen));
 		
 		var paciente = pacienteRepository.findById(datosAgen.idPaciente()).get();  
-		var medico = seleccionarMedico(datosAgen);
 		
-		var consulta = new Consulta(0, medico, paciente, datosAgen.fecha());  //para pasarle los med y pas ocupamos los respos
+		var medico = seleccionarMedico(datosAgen);
+		if(medico==null) {
+			throw new ValidacionDeIntegridad("No exsite medicos disponibles para este horario o especialidad");
+		}
+		
+		var consulta = new Consulta(medico, paciente, datosAgen.fecha());  //para pasarle los med y pas ocupamos los respos
 		consuRepository.save(consulta);
+		
+		return new DatosDetalleConsulta(consulta);
 	}
 
 		//cambio de un comentario
